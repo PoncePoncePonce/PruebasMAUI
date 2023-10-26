@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PruebasMAUI.Pages.PedidosSwipe"
+             Title="PedidosSwipe"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:PruebasMAUI.Models.ViewModels"
+             xmlns:models="clr-namespace:PruebasMAUI.Models"
+             x:DataType="vm:EmployeesViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <FlexLayout Direction="Column">
+            <Frame Margin="5" Padding="5" FlexLayout.Basis="Auto">
+                <VerticalStackLayout Padding="10">
+                    <Entry x:Name="Id" Placeholder="Id" Text="{Binding Employee.EmployeeId}"/>
+                    <Entry x:Name="Name" Placeholder="Nombre" Text="{Binding Employee.EmployeeName}"/>
+                    <Entry x:Name="Email" Placeholder="Email" Text="{Binding Employee.Email}"/>
+                    <HorizontalStackLayout>
+                        <Label Text="Blocked"/>
+                        <Switch x:Name="Blocked" IsToggled="{Binding Employee.Blocked}"/>
+                    </HorizontalStackLayout>
+                    <Button x:Name="Adicion" Text="Añadir" Margin="10" Clicked="Adicion_Clicked"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <CollectionView x:Name="collectionView" EmptyView="Sin datos" SelectionMode="None">
+
+                <CollectionView.Header>
+                    <VerticalStackLayout Padding="2" BackgroundColor="#D4E6F1">
+                        <Label FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" Text="Lista de Pedidos" />
+                    </VerticalStackLayout>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Employee}">
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem IconImageSource="info.png" Clicked="Detalles_Clicked" BackgroundColor="RoyalBlue"/>
+                                    <SwipeItem IsVisible="{Binding Blocked, Converter={StaticResource InvertedBoolConverter}}" IconImageSource="basura.png" Clicked="Borrar_Clicked" BackgroundColor="DarkRed"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <Frame Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width=".4*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <VerticalStackLayout Grid.Column="0">
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding EmployeeId}" VerticalOptions="Center" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding EmployeeName}" VerticalOptions="Center" />
+                                        <Switch IsToggled="{Binding Blocked}"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </FlexLayout>
+    </ScrollView>
+</ContentPage>
