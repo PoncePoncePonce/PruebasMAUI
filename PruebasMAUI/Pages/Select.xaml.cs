@@ -13,6 +13,6 @@ public partial class Select : ContentPage
 
     private async void RegistrarSelect_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new PedidosSelect());
+        await Navigation.PushAsync(new NewPage1());
     }
 }

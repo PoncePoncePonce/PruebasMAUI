@@ -19,6 +19,7 @@
                         <Switch x:Name="Blocked" IsToggled="{Binding Employee.Blocked}"/>
                     </HorizontalStackLayout>
                     <Button x:Name="Adicion" Text="Añadir" Margin="10" Clicked="Adicion_Clicked"/>
+                    <Button x:Name="pop" Text="POP" Clicked="pop_Clicked"/>
                 </VerticalStackLayout>
             </Frame>
 

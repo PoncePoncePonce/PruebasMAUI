@@ -14,6 +14,7 @@ public partial class PedidosSelect : ContentPage
         IniciarLista();
     }
     ObservableCollection<Employee> objetos;
+    private readonly IDispatcher dp;
 
 
     private async void IniciarLista()
@@ -47,5 +48,16 @@ public partial class PedidosSelect : ContentPage
         if (employee.Blocked == true)
             return;
         objetos.Remove(employee);
+    }
+
+    private async void pop_Clicked(object sender, EventArgs e)
+    {
+        var num = Navigation.NavigationStack;
+        while (Navigation.NavigationStack.Count > 4)
+        {
+            Navigation.RemovePage(Navigation.NavigationStack[1]);
+        }
+        await Shell.Current.GoToAsync(".."); //borra desde atras a delante
+        //await Navigation.PopAsync();
     }
 }
